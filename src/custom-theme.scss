@@ -9,11 +9,86 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
+$jogu-primary-palette: (
+ 50: #feeaee,
+ 100: #fcc9d2,
+ 200: #eb939a,
+ 300: #e06973,
+ 400: #ea4352,
+ 500: #ef2939,
+ 600: #e01d37,
+ 700: #ce0f31,
+ 800: #c1002a, // main
+ 900: #b2001e,
+ contrast: (
+   50: rgba(black, 0.87),
+   100: rgba(black, 0.87),
+   200: rgba(black, 0.87),
+   300: white,
+   400: white,
+   500: white,
+   600: white,
+   700: white,
+   800: white,
+   900: white,
+ )
+);
+
+$jogu-complementary-palette: (
+ 50: #dcf5ee,
+ 100: #a9e4d2,
+ 200: #6dd3b5,
+ 300: #00c197, // main
+ 400: #00b282,
+ 500: #00a26f,
+ 600: #009562,
+ 700: #008453,
+ 800: #007446,
+ 900: #00572a,
+ contrast: (
+   50: rgba(black, 0.87),
+   100: rgba(black, 0.87),
+   200: rgba(black, 0.87),
+   300: white,
+   400: white,
+   500: white,
+   600: white,
+   700: white,
+   800: white,
+   900: white,
+ )
+);
+
+$jogu-secondary-palette: (
+ 50: #fafafa,
+ 100: #f5f5f5,
+ 200: #efefef,
+ 300: #e2e2e2,
+ 400: #bfbfbf,
+ 500: #a0a0a0,
+ 600: #777777,
+ 700: #636363, // main
+ 800: #444444,
+ 900: #232323,
+ contrast: (
+   50: rgba(black, 0.87),
+   100: rgba(black, 0.87),
+   200: rgba(black, 0.87),
+   300: white,
+   400: white,
+   500: white,
+   600: white,
+   700: white,
+   800: white,
+   900: white,
+ )
+);
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$FdM-Registration-primary: mat.define-palette(mat.$indigo-palette);
-$FdM-Registration-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$FdM-Registration-primary: mat.define-palette($jogu-primary-palette, 800);
+$FdM-Registration-accent: mat.define-palette($jogu-complementary-palette, 300, 200, 500);
 
 // The warn palette is optional (defaults to red).
 $FdM-Registration-warn: mat.define-palette(mat.$red-palette);
