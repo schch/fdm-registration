@@ -9,5 +9,10 @@
 				"Angular.ng-template"
 			]
 		}
+	},
+	"portsAttributes": {
+		"4200": {
+			"label": "ng serve"
+		}
 	}
 }
