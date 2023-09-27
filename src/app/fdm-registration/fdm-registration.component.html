@@ -4,8 +4,8 @@
       <ng-template matStepLabel>E-Mail Adresse angeben</ng-template>
       <mat-form-field>
         <mat-label>E-Mail</mat-label>
-        <input matInput formControlName="emailCtrl"
-	       placeholder="ich@beispiel.de" required autocomplete="username" type="email">
+        <input matInput formControlName="emailCtrl" placeholder="ich@beispiel.de" required autocomplete="username"
+          type="email">
       </mat-form-field>
       <div>
         <button mat-button matStepperNext>Next</button>
@@ -29,22 +29,17 @@
       <ng-template matStepLabel>Kontaktdaten angeben</ng-template>
       <mat-form-field>
         <mat-label>Name</mat-label>
-        <input matInput formControlName="contactCtrl" placeholder="Vorname(n) Nachname"
-	       required autocomplete="name">
+        <input matInput formControlName="contactCtrl" placeholder="Vorname(n) Nachname" required autocomplete="name">
       </mat-form-field>
       <mat-form-field>
         <mat-label>Adresse</mat-label>
-        <textarea matInput formControlName="contactCtrl"
-	       placeholder="Staudingerweg 9, 55128 Mainz"
-	       autocomplete="street-address"></textarea>
+        <textarea matInput formControlName="contactCtrl" placeholder="Staudingerweg 9, 55128 Mainz"
+          autocomplete="street-address"></textarea>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Telefonnummer</mat-label>
-        <input matInput formControlName="contactCtrl"
-	       placeholder="06131/3922834" 
-	       autocomplete="tel-national"
-	       type="tel" enterkeyhint="numeric"
-	       >
+        <input matInput formControlName="contactCtrl" placeholder="06131/3922834" autocomplete="tel-national" type="tel"
+          enterkeyhint="numeric">
       </mat-form-field>
       <div>
         <button mat-button matStepperNext>Next</button>
@@ -56,14 +51,12 @@
       <ng-template matStepLabel>Bankdaten angeben</ng-template>
       <mat-form-field>
         <mat-label>Name der Bank</mat-label>
-        <input matInput formControlName="bankCtrl" placeholder="Mainzer Volksbank"
-	       required>
+        <input matInput formControlName="bankCtrl" placeholder="Mainzer Volksbank" required>
       </mat-form-field>
       <mat-form-field>
         <mat-label>IBAN</mat-label>
-        <input matInput formControlName="bankCtrl"
-	       placeholder="DE75 1234 5678 0000 9876 54"
-	       autocomplete="street-address" required>
+        <input matInput formControlName="bankCtrl" placeholder="DE75 1234 5678 0000 9876 54"
+          autocomplete="street-address" required>
       </mat-form-field>
       <div>
         <button mat-button matStepperPrevious>Back</button>
