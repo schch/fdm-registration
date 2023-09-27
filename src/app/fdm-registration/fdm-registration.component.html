@@ -1,0 +1,82 @@
+<mat-stepper linear #stepper [orientation]="(stepperOrientation | async)!">
+  <mat-step [stepControl]="emailEntryFormGroup" editable="false">
+    <form [formGroup]="emailEntryFormGroup">
+      <ng-template matStepLabel>E-Mail Adresse angeben</ng-template>
+      <mat-form-field>
+        <mat-label>E-Mail</mat-label>
+        <input matInput formControlName="emailCtrl"
+	       placeholder="ich@beispiel.de" required autocomplete="username" type="email">
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="emailVerificationFormGroup" editable="false">
+    <form [formGroup]="emailVerificationFormGroup">
+      <ng-template matStepLabel>E-Mail Adresse verifizieren</ng-template>
+      <mat-form-field>
+        <mat-label>Verifizierungs Code</mat-label>
+        <input matInput formControlName="emailVerifyCtrl" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="contactFormGroup">
+    <form [formGroup]="contactFormGroup">
+      <ng-template matStepLabel>Kontaktdaten angeben</ng-template>
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="contactCtrl" placeholder="Vorname(n) Nachname"
+	       required autocomplete="name">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Adresse</mat-label>
+        <textarea matInput formControlName="contactCtrl"
+	       placeholder="Staudingerweg 9, 55128 Mainz"
+	       autocomplete="street-address"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Telefonnummer</mat-label>
+        <input matInput formControlName="contactCtrl"
+	       placeholder="06131/3922834" 
+	       autocomplete="tel-national"
+	       type="tel" enterkeyhint="numeric"
+	       >
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="bankFormGroup">
+    <form [formGroup]="bankFormGroup">
+      <ng-template matStepLabel>Bankdaten angeben</ng-template>
+      <mat-form-field>
+        <mat-label>Name der Bank</mat-label>
+        <input matInput formControlName="bankCtrl" placeholder="Mainzer Volksbank"
+	       required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>IBAN</mat-label>
+        <input matInput formControlName="bankCtrl"
+	       placeholder="DE75 1234 5678 0000 9876 54"
+	       autocomplete="street-address" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-stepper>
