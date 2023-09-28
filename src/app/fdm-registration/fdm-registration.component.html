@@ -4,9 +4,13 @@
       <ng-template matStepLabel>E-Mail Adresse angeben</ng-template>
       <mat-form-field>
         <mat-label>E-Mail</mat-label>
-        <input matInput formControlName="emailCtrl" placeholder="ich@beispiel.de" required autocomplete="username"
+        <input matInput formControlName="emailCtrl" placeholder="ich@beispiel.de" required autocomplete="email"
           type="email">
-      </mat-form-field>
+          <mat-error *ngIf="emailEntryFormGroup.get('emailCtrl')?.invalid">
+            <span *ngIf="emailEntryFormGroup.get('emailCtrl')?.hasError('email')">Ungültige E-Mail Adresse</span>
+            <span *ngIf="emailEntryFormGroup.get('emailCtrl')?.hasError('required')">Muss angegeben werden</span>
+          </mat-error>
+        </mat-form-field>
       <div>
         <button mat-button matStepperNext>Next</button>
       </div>
@@ -18,7 +22,10 @@
       <mat-form-field>
         <mat-label>Verifizierungs Code</mat-label>
         <input matInput formControlName="emailVerifyCtrl" required>
-      </mat-form-field>
+        <mat-error *ngIf="emailVerificationFormGroup.get('emailVerifyCtrl')?.invalid">
+          <span *ngIf="emailVerificationFormGroup.get('emailVerifyCtrl')?.hasError('required')">Muss angegeben werden</span>
+        </mat-error>
+    </mat-form-field>
       <div>
         <button mat-button matStepperNext>Next</button>
       </div>
@@ -29,16 +36,19 @@
       <ng-template matStepLabel>Kontaktdaten angeben</ng-template>
       <mat-form-field>
         <mat-label>Name</mat-label>
-        <input matInput formControlName="contactCtrl" placeholder="Vorname(n) Nachname" required autocomplete="name">
+        <input matInput formControlName="contactNameCtrl" placeholder="Vorname(n) Nachname" required autocomplete="name">
+        <mat-error *ngIf="contactFormGroup.get('contactNameCtrl')?.invalid">
+          <span *ngIf="contactFormGroup.get('contactNameCtrl')?.hasError('required')">Muss angegeben werden</span>
+        </mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Adresse</mat-label>
-        <textarea matInput formControlName="contactCtrl" placeholder="Staudingerweg 9, 55128 Mainz"
+        <textarea matInput formControlName="contactAddressCtrl" placeholder="Staudingerweg 9, 55128 Mainz"
           autocomplete="street-address"></textarea>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Telefonnummer</mat-label>
-        <input matInput formControlName="contactCtrl" placeholder="06131/3922834" autocomplete="tel-national" type="tel"
+        <input matInput formControlName="contactPhoneCtrl" placeholder="06131/3922834" autocomplete="tel-national" type="tel"
           enterkeyhint="numeric">
       </mat-form-field>
       <div>
@@ -50,23 +60,51 @@
     <form [formGroup]="bankFormGroup">
       <ng-template matStepLabel>Bankdaten angeben</ng-template>
       <mat-form-field>
+        <mat-label>Jahresbeitrag</mat-label>
+        <input matInput formControlName="bankAmountCtrl" type="text" placeholder="12" enterkeyhint="numeric" required min="12">
+        <span matTextPrefix>€&nbsp;</span>
+        <mat-error *ngIf="bankFormGroup.get('bankAmountCtrl')?.invalid">
+          <span *ngIf="bankFormGroup.get('bankAmountCtrl')?.hasError('pattern')">Kein gültiger Betrag</span>
+          <span *ngIf="bankFormGroup.get('bankAmountCtrl')?.hasError('min')">Mindestbeitrag ist €&nbsp;12,--</span>
+          <span *ngIf="bankFormGroup.get('bankAmountCtrl')?.hasError('required')">Muss angegeben werden</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
         <mat-label>Name der Bank</mat-label>
-        <input matInput formControlName="bankCtrl" placeholder="Mainzer Volksbank" required>
+        <input matInput formControlName="bankNameCtrl" placeholder="Mainzer Volksbank" required>
+        <mat-error *ngIf="bankFormGroup.get('bankNameCtrl')?.invalid">
+          <span *ngIf="bankFormGroup.get('bankNameCtrl')?.hasError('required')">Muss angegeben werden</span>
+        </mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>IBAN</mat-label>
-        <input matInput formControlName="bankCtrl" placeholder="DE75 1234 5678 0000 9876 54"
-          autocomplete="street-address" required>
-      </mat-form-field>
-      <div>
+        <input matInput formControlName="bankIBANCtrl" placeholder="DE75 5121 0800 1245 1261 99"
+          required>
+          <mat-error *ngIf="bankFormGroup.get('bankIBANCtrl')?.invalid">
+            <span *ngIf="bankFormGroup.get('bankIBANCtrl')?.hasError('required')">Muss angegeben werden</span>
+            <span *ngIf="bankFormGroup.get('bankIBANCtrl')?.hasError('iban')">IBAN ungültig</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Kontoinhaber</mat-label>
+          <input matInput formControlName="bankOwnerCtrl" placeholder="Vorname(n) Nachname" required autocomplete="name">
+          <mat-error *ngIf="bankFormGroup.get('bankOwnerCtrl')?.invalid">
+            <span *ngIf="bankFormGroup.get('bankOwnerCtrl')?.hasError('required')">Muss angegeben werden</span>
+          </mat-error>
+        </mat-form-field>      <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
       </div>
     </form>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    <p>You are now done.</p>
+    <ng-template matStepLabel>Zusammenfassung</ng-template>
+    <p>Hiermit ermächtige ich den Verein „Freunde der Mathematik an der Johannes Gutenberg-Universität Mainz e.V.“ meinen
+      Mitgliedsbeitrag bei Fälligkeit zu Lasten meines Kontos mittels Lastschrift einzuziehen. Wenn mein Konto die erforderliche
+      Deckung nicht aufweist, besteht seitens des kontoführenden Instituts keine Verpflichtung zur Einlösung. Die Mitgliederdaten
+      werden unter Beachtung des Bundesdatenschutzgesetzes für die vereinsinterne Mitgliederverwaltung gespeichert und verarbeitet.
+      Kontoänderungen sind dem Verein rechtzeitig mitzuteilen; unterbleibt die Mitteilung, so gehen alle anfallenden Kosten zu Lasten
+      des Mitglieds.</p>
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button (click)="stepper.reset()">Reset</button>
