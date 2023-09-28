@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { StepperOrientation, MatStepperModule } from '@angular/material/stepper';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {ValidatorService} from 'angular-iban';
 
@@ -35,6 +35,8 @@ export class FdmRegistrationComponent {
 	contactFormGroup: FormGroup;
 	bankFormGroup: FormGroup;
 
+	newMemberNameSubs: Subscription;
+
 	constructor(private _formBuilder: FormBuilder, breakpointObserver: BreakpointObserver) {
 		// setup form controls
 		this.emailEntryFormGroup = this._formBuilder.group({ 
@@ -58,7 +60,7 @@ export class FdmRegistrationComponent {
 
 		 let name = this.contactFormGroup.get('contactNameCtrl') as FormControl;
 		 let owner = this.bankFormGroup.get('bankOwnerCtrl') as FormControl;
-		 name.valueChanges.subscribe((newValue: any) => {
+		 this.newMemberNameSubs = name.valueChanges.subscribe((newValue: any) => {
 			owner.setValue(newValue);
 		 });
 
@@ -66,5 +68,9 @@ export class FdmRegistrationComponent {
 		this.stepperOrientation = breakpointObserver
 			.observe('(min-width: 800px)')
 			.pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
+	}
+
+	ngOnDestroy() {
+		this.newMemberNameSubs.unsubscribe();
 	}
 }
