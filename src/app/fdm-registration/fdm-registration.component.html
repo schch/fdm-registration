@@ -65,7 +65,7 @@
         <span matTextPrefix>€&nbsp;</span>
         <mat-error *ngIf="bankFormGroup.get('bankAmountCtrl')?.invalid">
           <span *ngIf="bankFormGroup.get('bankAmountCtrl')?.hasError('pattern')">Kein gültiger Betrag</span>
-          <span *ngIf="bankFormGroup.get('bankAmountCtrl')?.hasError('min')">Mindestbeitrag ist €&nbsp;12,--</span>
+          <span *ngIf="bankFormGroup.get('bankAmountCtrl')?.hasError('min')">Mindestbeitrag ist €&nbsp;{{bankFormGroup.get('bankAmountCtrl')?.getError('min').min}},--</span>
           <span *ngIf="bankFormGroup.get('bankAmountCtrl')?.hasError('required')">Muss angegeben werden</span>
         </mat-error>
       </mat-form-field>
