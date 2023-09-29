@@ -6,3 +6,8 @@ mat-form-field {
 form {
   max-width: 59em;
 }
+
+mat-radio-group {
+  margin-top: 16px;
+  min-width: 59em;
+}
