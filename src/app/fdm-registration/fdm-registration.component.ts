@@ -6,6 +6,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { StepperOrientation, MatStepperModule, MatStepper } from '@angular/material/stepper';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
@@ -27,7 +29,9 @@ import { StepperSelectionEvent } from '@angular/cdk/stepper';
 		MatRadioModule,
 		AsyncPipe,
 		CommonModule,
-		AngularIbanModule
+		AngularIbanModule,
+		MatCardModule,
+		MatDividerModule
 	],
 	standalone: true,
 })
@@ -154,6 +158,7 @@ export class FdmRegistrationComponent {
 		bankOwner: string;
 		bankName: string;
 		bankIBAN: string;
+		date: string;
 	} = {
 		memberEMail: '',
 		memberName: '',
@@ -164,12 +169,12 @@ export class FdmRegistrationComponent {
 		bankOwner: '',
 		bankName: '',
 		bankIBAN: '',
+		date: '',
 	};
 
 	updateFormValues() {
 		this.formValues.memberEMail = this.emailEntryFormGroup.get('emailCtrl')?.value;
 		this.formValues.memberName = this.contactFormGroup.get('contactNameCtrl')?.value;
-		this.formValues.memberAmount = this.bankFormGroup.get('bankAmountCtrl')?.value;
 
 		this.formValues.contactAddress = this.contactFormGroup.get('contactAddressCtrl')?.value;
 		this.formValues.contactPhone = this.contactFormGroup.get('contactPhoneCtrl')?.value;
@@ -179,5 +184,10 @@ export class FdmRegistrationComponent {
 		this.formValues.bankIBAN = this.bankFormGroup.get('bankIBANCtrl')?.value;
 
 		this.formValues.paymentTypeIsSEPA = this.bankFormGroup.get('paymentTypeCtrl')?.value === 'sepa';
-	  }
+
+		this.formValues.date = Date();
+
+		const valueStr: string = this.bankFormGroup.get('bankAmountCtrl')?.value.toString();
+		this.formValues.memberAmount = Number(valueStr.replace(',','.'));
+	}
 }

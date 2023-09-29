@@ -14,7 +14,7 @@ import { FdmRegistrationComponent } from './fdm-registration/fdm-registration.co
     BrowserAnimationsModule,
     FdmRegistrationComponent
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'de-DE' }],
+  providers: [{ provide: LOCALE_ID, useValue: 'de' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

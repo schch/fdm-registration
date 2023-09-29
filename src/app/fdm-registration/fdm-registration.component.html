@@ -97,7 +97,7 @@
         </div>
         <div>
           <mat-form-field>
-            <mat-label>Name der Bank</mat-label>
+            <mat-label>Kreditinstitut</mat-label>
             <input matInput formControlName="bankNameCtrl" placeholder="Mainzer Volksbank">
             <mat-error *ngIf="bankFormGroup.get('bankNameCtrl')?.invalid">
               <span *ngIf="bankFormGroup.get('bankNameCtrl')?.hasError('required')">Muss angegeben werden</span>
@@ -132,37 +132,62 @@
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Zusammenfassung</ng-template>
-    <div fxLayout="column">
-      <div>
-        <h2>Anmeldung zur Mitgliedschaft im Förderverein „Freunde der Mathematik an der Johannes Gutenberg-Universität
-          Mainz e.V.“</h2>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Anmeldung zur Mitgliedschaft im Förderverein</mat-card-title>
+        <mat-card-subtitle>„Freunde der Mathematik an der Johannes Gutenberg-Universität
+          Mainz e.V.“</mat-card-subtitle>
+        <img mat-card-avatar src="assets/logo-2018.jpg" />
+
+      </mat-card-header>
+      <mat-card-content>
+        <p>Fachbereich Physik, Mathematik und Informatik<br>
+          Institut für Mathematik<br>
+          Staudingerweg 9<br>
+          55099 Mainz</p>
+        <mat-divider></mat-divider>
+        <h3>Daten zur Mitgliedschaft</h3>
         <p>Name: {{ formValues.memberName }}</p>
         <p>Email: {{ formValues.memberEMail }}</p>
         <p *ngIf="isStudent()">Studierend ohne Abschluss (Beitragsfrei)</p>
         <p>Adresse: {{ formValues.contactAddress || '-'}}</p>
         <p>Telefon: {{ formValues.contactPhone || '-' }}</p>
-        <p *ngIf="needsBankData()">Jahresbeitrag: {{ formValues.memberAmount | currency:'EUR':'symbol-narrow':'1.2-2':'de-DE'}}</p>
-        <p *ngIf="formValues.paymentTypeIsSEPA">Bank: {{ formValues.bankName }}</p>
-        <p *ngIf="formValues.paymentTypeIsSEPA">IBAN: {{ formValues.bankIBAN | ibanFormatter}}</p>
-        <p *ngIf="formValues.paymentTypeIsSEPA">Hiermit ermächtige ich den Verein „Freunde der Mathematik an der
-          Johannes Gutenberg-Universität Mainz e.V.“ (Gläubiger Identifikationsnummer )
-          meinen
-          Mitgliedsbeitrag bei Fälligkeit zu Lasten meines Kontos mittels SEPA-Lastschrift einzuziehen. Wenn mein Konto
-          die
-          erforderliche
-          Deckung nicht aufweist, besteht seitens des kontoführenden Instituts keine Verpflichtung zur Einlösung. Die
-          Mitgliederdaten
-          werden unter Beachtung des Bundesdatenschutzgesetzes für die vereinsinterne Mitgliederverwaltung gespeichert
-          und
-          verarbeitet.
-          Kontoänderungen sind dem Verein rechtzeitig mitzuteilen; unterbleibt die Mitteilung, so gehen alle anfallenden
-          Kosten zu Lasten
-          des Mitglieds.</p>
-      </div>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
+        <p *ngIf="formValues.memberAmount > 0">Jahresbeitrag: {{ formValues.memberAmount |
+          currency:'EUR':'symbol-narrow':'1.2-2':'de-DE'}} jeweils fällig zum 1. Januar</p>
+        <p *ngIf="!formValues.paymentTypeIsSEPA && formValues.memberAmount > 0">Der Betrag wird von mir rechtzeitig
+          überweisen.</p>
+        <p>Die Kündigungsfrist zur Kündigung der Mitgliedschaft beträgt 3 Mondate zum Ende eines Jahres. Die Kündigung
+          bedarf der Textform.</p>
+        <p>Das Abonement der Mailingliste kann über folgenden Link <a
+            href="https://lists.uni-mainz.de/sympa/info/freunde-der-mathematik-l">https://lists.uni-mainz.de/sympa/info/freunde-der-mathematik-l</a>
+          verwaltet werden.</p>
+        <div *ngIf="formValues.paymentTypeIsSEPA && formValues.memberAmount > 0">
+          <mat-divider></mat-divider>
+          <h3>SEPA-Lastschriftmandat</h3>
+          <p>Kontoinhaber: {{ formValues.bankOwner }}</p>
+          <p>Kreditinstitut: {{ formValues.bankName }}</p>
+          <p>IBAN: {{ formValues.bankIBAN |ibanFormatter }}</p>
+          <p>Hiermit ermächtige ich den Verein
+            „Freunde der Mathematik an der
+            Johannes Gutenberg-Universität Mainz e.V.“ (Gläubiger Identifikationsnummer DE39 ZZZ0 0000 1978 26)
+            meinen
+            Mitgliedsbeitrag bei Fälligkeit zu Lasten meines Kontos mittels SEPA-Lastschrift einzuziehen.
+            Zugleich weise ich mein Kreditinstitut an, die vom Verein „Freunde der Mathematik an der
+            Johannes Gutenberg-Universität Mainz e.V.“ auf mein Konto gezogenen Lastschriften einzulösen.</p>
+          <p>Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des
+            belasteten Betrages verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedinungen.
+          </p>
+          <p>Kontoänderungen sind dem Verein rechtzeitig mitzuteilen.
+            Unterbelibt die Mitteilung, so gehen alle anfallenden Kosten zu Lasten des Mitglieds.</p>
+        </div>
+        <p>Die Mitgliedsdaten werden unter Beachtung des Bundesdatenschutgesetztes für die vereinsinterne
+          Mitgliederverwaltung gespeichert und verarbeitet.</p>
+        <p>Datum: {{ formValues.date | date:'longDate' }}</p>
+      </mat-card-content>
+    </mat-card>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
     </div>
   </mat-step>
 </mat-stepper>
