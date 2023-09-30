@@ -11,3 +11,14 @@ mat-radio-group {
   margin-top: 16px;
   min-width: 59em;
 }
+
+div.spinner-area {
+  max-width: 1em;
+  min-height: 1em;
+  border: 1px solid black;
+}
+
+mat-spinner {
+  max-width: 1em;
+  max-height: 1em;
+}

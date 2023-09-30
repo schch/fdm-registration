@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "fdm-anmeldung"
+  },
+  "targets": {
+    "fdm-anmeldung": {
+      "hosting": {
+        "FdM-Registration": [
+          "fdm-anmeldung"
+        ]
+      }
+    }
+  }
+}

@@ -5,6 +5,11 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FdmRegistrationComponent } from './fdm-registration/fdm-registration.component';
 
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { firebaseConfig } from './FirebaseConfig';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -12,7 +17,9 @@ import { FdmRegistrationComponent } from './fdm-registration/fdm-registration.co
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    FdmRegistrationComponent
+    FdmRegistrationComponent,
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideAuth(() => getAuth()),
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'de' }],
   bootstrap: [AppComponent]

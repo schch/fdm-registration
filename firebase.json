@@ -1,1 +1,29 @@
-{}
+{
+  "hosting": [
+    {
+      "public": "dist/fdm-registration",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    },
+    {
+      "target": "FdM-Registration",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ],
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true
+  }
+}

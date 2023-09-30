@@ -12,11 +12,17 @@
         </mat-error>
       </mat-form-field>
       <div>
-        <button mat-button matStepperNext>Next</button>
+        <button *ngIf="!isEmailVerfied()"
+          [disabled]="isVerfiyButtonDisabled() || emailEntryFormGroup.get('emailCtrl')?.invalid" mat-button
+          (click)="verfiyEMailAddress()">Adresse verifizieren<mat-icon>
+            <span *ngIf="!isVerfiyButtonDisabled()" class="material-icons">mark_email_read</span>
+            <mat-spinner *ngIf="isVerfiyButtonDisabled()" diameter="20">
+            </mat-spinner></mat-icon></button>
+        <button mat-button matStepperNext [disabled]="!isEmailVerfied()">next</button>
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="emailVerificationFormGroup" editable="false">
+  <!-- mat-step [stepControl]="emailVerificationFormGroup" editable="false">
     <form [formGroup]="emailVerificationFormGroup">
       <ng-template matStepLabel>E-Mail Adresse verifizieren</ng-template>
       <mat-form-field>
@@ -31,7 +37,7 @@
         <button mat-button matStepperNext>Next</button>
       </div>
     </form>
-  </mat-step>
+  </mat-step -->
   <mat-step [stepControl]="contactFormGroup">
     <form [formGroup]="contactFormGroup">
       <ng-template matStepLabel>Kontaktdaten angeben</ng-template>
