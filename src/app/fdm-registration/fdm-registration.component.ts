@@ -347,4 +347,12 @@ export class FdmRegistrationComponent {
 
 	}
 
+	subscribeToMailingList() {
+		let mailToLink: string = "mailto:sympa@lists.uni-mainz.de?subject=subscribe%20freunde-der-mathematik-l%20";
+
+		mailToLink += encodeURIComponent(this.formValues.memberName);
+
+		window.location.assign(mailToLink);
+	}
+
 }
