@@ -18,7 +18,7 @@
             <span *ngIf="!isVerfiyButtonDisabled()" class="material-icons">mark_email_read</span>
             <mat-spinner *ngIf="isVerfiyButtonDisabled()" diameter="20">
             </mat-spinner></mat-icon></button>
-        <button mat-button matStepperNext [disabled]="!isEmailVerfied()">next</button>
+        <button mat-button matStepperNext [disabled]="!isEmailVerfied()">Weiter</button>
       </div>
     </form>
   </mat-step>
@@ -73,7 +73,7 @@
           </mat-form-field>
         </div>
         <div>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperNext>Weiter</button>
         </div>
       </div>
     </form>
@@ -130,8 +130,8 @@
           </mat-form-field>
         </div>
         <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperPrevious>Zurück</button>
+          <button mat-button matStepperNext>Weiter</button>
         </div>
       </div>
     </form>
@@ -192,8 +192,8 @@
       </mat-card-content>
     </mat-card>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-button matStepperPrevious>Zurück</button>
+      <button mat-button (click)="createMail()">Anmeldung per E-Mail versenden</button>
     </div>
   </mat-step>
 </mat-stepper>

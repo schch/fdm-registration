@@ -17,8 +17,12 @@ import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import { Auth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, connectAuthEmulator } from '@angular/fire/auth';
+import { Auth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, deleteUser, connectAuthEmulator } from '@angular/fire/auth';
 import { MatIconModule } from '@angular/material/icon';
+
+import { Key as openpgp_Key, encrypt as openpgp_encrypt, readKey as openpgp_readKey, createMessage as openpgp_createMessage } from 'openpgp';
+import * as stream from '@openpgp/web-stream-tools';
+import { publicKeyArmored } from 'src/assets/publickey';
 
 @Component({
 	selector: 'fdm-registration',
@@ -57,12 +61,14 @@ export class FdmRegistrationComponent {
 	stepperOrientation: Observable<StepperOrientation>;
 
 	emailEntryFormGroup: FormGroup;
-	emailVerificationFormGroup: FormGroup;
+	// emailVerificationFormGroup: FormGroup;
 	contactFormGroup: FormGroup;
 	bankFormGroup: FormGroup;
 
 	private emailIsVerified: boolean = false;
 	private verifyButtonIsDisabled: boolean = false;
+
+	private publicKey!: openpgp_Key;
 
 	constructor(private _formBuilder: FormBuilder, breakpointObserver: BreakpointObserver, location: Location, private _snackBar: MatSnackBar) {
 		this.location = location;
@@ -71,9 +77,9 @@ export class FdmRegistrationComponent {
 		this.emailEntryFormGroup = this._formBuilder.group({
 			emailCtrl: ['', [Validators.required, Validators.email]]
 		});
-		this.emailVerificationFormGroup = this._formBuilder.group({
+		/* this.emailVerificationFormGroup = this._formBuilder.group({
 			emailVerifyCtrl: ['', [Validators.required]]
-		});
+		});*/
 
 		this.contactFormGroup = this._formBuilder.group({
 			contactTypeCtrl: ['privatperson', [Validators.required]],
@@ -93,13 +99,14 @@ export class FdmRegistrationComponent {
 		this.stepperOrientation = breakpointObserver
 			.observe('(min-width: 800px)')
 			.pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
+
+		openpgp_readKey({
+			armoredKey: publicKeyArmored
+		}).then((result) => { this.publicKey = result; });
 	}
 
 	ngOnInit() {
-		connectAuthEmulator(this.auth, 'https://special-palm-tree-gx955jv667rcp4xw-9099.app.github.dev/', { disableWarnings: true });
-
-		console.log(this.location.path(false));
-		console.log(window.location.href);
+		//connectAuthEmulator(this.auth, 'https://special-palm-tree-gx955jv667rcp4xw-9099.app.github.dev/', { disableWarnings: true });
 
 		if (isSignInWithEmailLink(this.auth, window.location.href)) {
 			this.handleVerifiedEMail();
@@ -182,6 +189,7 @@ export class FdmRegistrationComponent {
 		memberEMail: string;
 		memberName: string;
 		memberAmount: number;
+		memberType: string;
 
 		contactAddress: string;
 		contactPhone: string;
@@ -195,18 +203,20 @@ export class FdmRegistrationComponent {
 			memberEMail: '',
 			memberName: '',
 			memberAmount: 12,
+			memberType: '',
 			contactAddress: '',
 			contactPhone: '',
 			paymentTypeIsSEPA: false,
 			bankOwner: '',
 			bankName: '',
 			bankIBAN: '',
-			date: '',
+			date: Date(),
 		};
 
 	updateFormValues() {
 		this.formValues.memberEMail = this.emailEntryFormGroup.get('emailCtrl')?.value;
 		this.formValues.memberName = this.contactFormGroup.get('contactNameCtrl')?.value;
+		this.formValues.memberType = this.contactFormGroup.get('contactTypeCtrl')?.value;
 
 		this.formValues.contactAddress = this.contactFormGroup.get('contactAddressCtrl')?.value;
 		this.formValues.contactPhone = this.contactFormGroup.get('contactPhoneCtrl')?.value;
@@ -279,6 +289,8 @@ export class FdmRegistrationComponent {
 				// result.additionalUserInfo.isNewUser
 				console.log(result);
 
+				deleteUser(result.user);
+
 				this.emailIsVerified = true;
 
 				this.emailEntryFormGroup.get('emailCtrl')?.setValue(email);
@@ -305,4 +317,34 @@ export class FdmRegistrationComponent {
 	isVerfiyButtonDisabled(): boolean {
 		return this.verifyButtonIsDisabled;
 	}
+
+	async encryptMessage(): Promise<string> {
+		let msg_field = JSON.stringify(this.formValues, undefined, 4);
+
+		let result =
+			await openpgp_encrypt({
+				message: await openpgp_createMessage({ text: msg_field }), // input as Message object
+				encryptionKeys: this.publicKey,
+				config: { rejectPublicKeyAlgorithms: new Set([]) }
+			});
+
+		return stream.readToEnd(result);
+	}
+
+	async createMail() {
+
+		let mailToLink: string = "mailto:freunde@mathematik.uni-mainz.de?subject=Anmeldung%20zur%20Mitgliedschaft%20im%20Förderverein&body=";
+
+		this.encryptMessage().then((r) => {
+			//console.log(r);
+
+			mailToLink += encodeURIComponent(r);
+
+			//console.log(mailToLink);
+
+			window.location.assign(mailToLink);
+		});
+
+	}
+
 }
