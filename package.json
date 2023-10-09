@@ -22,9 +22,11 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
+    "@fontsource/material-icons": "^5.0.7",
+    "@fontsource/roboto": "^5.0.8",
+    "@openpgp/web-stream-tools": "^0.0.14",
     "angular-iban": "^16.0.0",
     "openpgp": "^5.10.2",
-    "@openpgp/web-stream-tools": "^0.0.14",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
@@ -34,6 +36,7 @@
     "@angular/cli": "~16.2.3",
     "@angular/compiler-cli": "^16.2.0",
     "@types/jasmine": "~4.3.0",
+    "css-loader": "^6.8.1",
     "firebase-tools": "^12.6.1",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
@@ -41,6 +44,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "style-loader": "^3.3.3",
     "typescript": "~5.1.3"
   }
 }

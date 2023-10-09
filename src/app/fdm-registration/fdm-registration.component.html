@@ -14,7 +14,7 @@
       <div>
         <button *ngIf="!isEmailVerfied()"
           [disabled]="isVerfiyButtonDisabled() || emailEntryFormGroup.get('emailCtrl')?.invalid" mat-button
-          (click)="verfiyEMailAddress()">Adresse verifizieren<mat-icon>
+          (click)="verfiyEMailAddress()">Adresse durch Google verifizieren<mat-icon>
             <span *ngIf="!isVerfiyButtonDisabled()" class="material-icons">mark_email_read</span>
             <mat-spinner *ngIf="isVerfiyButtonDisabled()" diameter="20">
             </mat-spinner></mat-icon></button>
