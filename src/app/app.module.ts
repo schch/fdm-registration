@@ -1,4 +1,5 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import '@angular/common/locales/global/de';
 
@@ -18,6 +19,7 @@ import { firebaseConfig } from './FirebaseConfig';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     FdmRegistrationComponent,
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideAuth(() => initializeAuth(getApp(), {

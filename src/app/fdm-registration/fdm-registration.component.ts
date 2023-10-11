@@ -1,4 +1,5 @@
 import { Component, ViewChild, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,14 +9,16 @@ import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { StepperOrientation, MatStepperModule, MatStepper } from '@angular/material/stepper';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-import { AsyncPipe, CommonModule, Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { ValidatorService, AngularIbanModule } from 'angular-iban';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatExpansionModule } from '@angular/material/expansion';
+
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { ValidatorService, AngularIbanModule } from 'angular-iban';
 
 import { Auth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, deleteUser, connectAuthEmulator } from '@angular/fire/auth';
 import { MatIconModule } from '@angular/material/icon';
@@ -44,17 +47,15 @@ import { publicKeyArmored } from 'src/assets/publickey';
 		MatSnackBarModule,
 		MatProgressSpinnerModule,
 		MatIconModule,
+		MatExpansionModule,
 	],
 	standalone: true,
-	providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }],
 })
 export class FdmRegistrationComponent {
 
 	private EMAIL_URL: string = "https://fdm-anmeldung.web.app/";
 
 	private auth: Auth = inject(Auth);
-
-	location: Location;
 
 	@ViewChild(MatStepper) stepper!: MatStepper;
 
@@ -70,8 +71,7 @@ export class FdmRegistrationComponent {
 
 	private publicKey!: openpgp_Key;
 
-	constructor(private _formBuilder: FormBuilder, breakpointObserver: BreakpointObserver, location: Location, private _snackBar: MatSnackBar) {
-		this.location = location;
+	constructor(private _formBuilder: FormBuilder, breakpointObserver: BreakpointObserver, private _snackBar: MatSnackBar, private http: HttpClient) {
 
 		// setup form controls
 		this.emailEntryFormGroup = this._formBuilder.group({
@@ -106,12 +106,33 @@ export class FdmRegistrationComponent {
 	}
 
 	ngOnInit() {
+		this.getLicenseTextFile();
+		this.getGDPRTextFile();
+
 		//connectAuthEmulator(this.auth, 'https://special-palm-tree-gx955jv667rcp4xw-9099.app.github.dev/', { disableWarnings: true });
 
 		if (isSignInWithEmailLink(this.auth, window.location.href)) {
 			this.handleVerifiedEMail();
 		}
 
+	}
+
+	licenseText: string = "MIT or Apache-2.0";
+
+	getLicenseTextFile() {
+		this.http.get("/3rdpartylicenses.txt", { responseType: 'text' })
+			.subscribe(data => {
+				this.licenseText = data;
+			});
+	}
+
+	gdprText: string = "blah blah blah";
+
+	getGDPRTextFile() {
+		this.http.get("/assets/dsgvo.txt", { responseType: 'text' })
+			.subscribe(data => {
+				this.gdprText = data;
+			});
 	}
 
 	handleOnStepChange(event: StepperSelectionEvent) {
