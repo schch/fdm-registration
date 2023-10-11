@@ -1,0 +1,44 @@
+Datenschutzerklärung
+
+Zuletzt aktualisiert: [Datum]
+
+1. Allgemeines
+
+Diese Datenschutzerklärung klärt die Nutzer über die Art, den Umfang und die Zwecke der Erhebung und Verwendung personenbezogener Daten durch [Dein Unternehmen/Dein Name], [Deine Anschrift], [Deine E-Mail-Adresse], [Deine Telefonnummer] auf dieser Website ([Deine Website-URL]) auf. Die rechtlichen Grundlagen des Datenschutzes finden sich in der Datenschutz-Grundverordnung (DSGVO) und dem Bundesdatenschutzgesetz (BDSG).
+
+2. Personenbezogene Daten
+
+Personenbezogene Daten sind Informationen, die sich auf eine identifizierte oder identifizierbare natürliche Person beziehen. Dazu gehören beispielsweise Name, E-Mail-Adresse, IP-Adresse und weitere Daten, die auf Sie persönlich beziehbar sind.
+
+3. Verantwortliche Stelle
+
+Die verantwortliche Stelle für die Verarbeitung personenbezogener Daten auf dieser Website ist:
+
+[Dein Unternehmen/Dein Name]
+[Deine Anschrift]
+[Deine E-Mail-Adresse]
+
+4. Verarbeitung personenbezogener Daten
+4.1. Kontaktaufnahme
+
+Wenn Sie uns per E-Mail kontaktieren, werden die von Ihnen angegebenen Daten zur Bearbeitung Ihrer Anfrage gespeichert. Diese Daten werden von uns nicht ohne Ihre Einwilligung weitergegeben.
+
+4.2. Google Firebase Authentication
+
+Wir verwenden Google Firebase Authentication, um die Anmeldung und Authentifizierung von Benutzern zu ermöglichen. Bei der Nutzung dieses Dienstes können personenbezogene Daten, wie beispielsweise Ihre E-Mail-Adresse, an Google übertragen werden. Weitere Informationen zur Datenschutzrichtlinie von Google finden Sie unter https://firebase.google.com/support/privacy?hl=de.
+
+4.3. Google Firebase Hosting
+
+Unsere Website wird über Google Firebase Hosting gehostet. Bei der Nutzung dieses Dienstes können einige technische Daten erfasst werden, darunter IP-Adressen. Diese Daten dienen ausschließlich zur Sicherstellung der Funktionalität und Sicherheit unserer Website.
+
+5. Ihre Rechte
+
+Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung und Übertragbarkeit Ihrer personenbezogenen Daten. Außerdem haben Sie das Recht, der Verarbeitung Ihrer Daten zu widersprechen. Bitte kontaktieren Sie uns unter [Deine Kontaktinformationen], um von diesen Rechten Gebrauch zu machen.
+
+6. Beschwerderecht bei der Aufsichtsbehörde
+
+Sie haben das Recht, sich bei der zuständigen Datenschutzbehörde über die Verarbeitung Ihrer personenbezogenen Daten zu beschweren.
+
+7. Änderungen dieser Datenschutzerklärung
+
+Diese Datenschutzerklärung kann sich von Zeit zu Zeit ändern, um die Einhaltung gesetzlicher Anforderungen sicherzustellen oder um Anpassungen aufgrund geänderter Dienste oder Technologien vorzunehmen. Die jeweils aktuelle Datenschutzerklärung finden Sie auf unserer Website.
