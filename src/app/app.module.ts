@@ -6,8 +6,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FdmRegistrationComponent } from './fdm-registration/fdm-registration.component';
 
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { getAuth, provideAuth } from '@angular/fire/auth';
+import { provideFirebaseApp, initializeApp, getApp } from '@angular/fire/app';
+import { browserSessionPersistence, initializeAuth, provideAuth } from '@angular/fire/auth';
 import { firebaseConfig } from './FirebaseConfig';
 
 
@@ -20,7 +20,11 @@ import { firebaseConfig } from './FirebaseConfig';
     BrowserAnimationsModule,
     FdmRegistrationComponent,
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
-    provideAuth(() => getAuth()),
+    provideAuth(() => initializeAuth(getApp(), {
+      persistence: undefined,
+      popupRedirectResolver: undefined
+    })
+    ),
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'de' }],
   bootstrap: [AppComponent]
