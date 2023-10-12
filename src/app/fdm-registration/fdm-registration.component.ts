@@ -62,11 +62,11 @@ export class FdmRegistrationComponent {
 	stepperOrientation: Observable<StepperOrientation>;
 
 	emailEntryFormGroup: FormGroup;
-	// emailVerificationFormGroup: FormGroup;
 	contactFormGroup: FormGroup;
 	bankFormGroup: FormGroup;
 
 	private emailIsVerified: boolean = false;
+	private verifiedEmailAddress : string = "unbekannt";
 	private verifyButtonIsDisabled: boolean = false;
 
 	private publicKey!: openpgp_Key;
@@ -77,9 +77,6 @@ export class FdmRegistrationComponent {
 		this.emailEntryFormGroup = this._formBuilder.group({
 			emailCtrl: ['', [Validators.required, Validators.email]]
 		});
-		/* this.emailVerificationFormGroup = this._formBuilder.group({
-			emailVerifyCtrl: ['', [Validators.required]]
-		});*/
 
 		this.contactFormGroup = this._formBuilder.group({
 			contactTypeCtrl: ['privatperson', [Validators.required]],
@@ -235,7 +232,7 @@ export class FdmRegistrationComponent {
 		};
 
 	updateFormValues() {
-		this.formValues.memberEMail = this.emailEntryFormGroup.get('emailCtrl')?.value;
+		this.formValues.memberEMail = this.verifiedEmailAddress;
 		this.formValues.memberName = this.contactFormGroup.get('contactNameCtrl')?.value;
 		this.formValues.memberType = this.contactFormGroup.get('contactTypeCtrl')?.value;
 
@@ -308,18 +305,19 @@ export class FdmRegistrationComponent {
 				// result.additionalUserInfo.profile == null
 				// You can check if the user is new or existing:
 				// result.additionalUserInfo.isNewUser
-				console.log(result);
+				// console.log(result);
 
 				deleteUser(result.user);
 
 				this.emailIsVerified = true;
+				this.verifiedEmailAddress = email || "unbekannt";
 
 				this.emailEntryFormGroup.get('emailCtrl')?.setValue(email);
 				this.emailEntryFormGroup.get('emailCtrl')?.updateValueAndValidity();
 
 				this.stepper.steps.first.completed = true;
 
-				this.stepper.steps.get(1)?.select;
+				this.stepper.next();
 			})
 			.catch((error) => {
 				// Some error occurred, you can inspect the code: error.code
