@@ -8,9 +8,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FdmRegistrationComponent } from './fdm-registration/fdm-registration.component';
 
 import { provideFirebaseApp, initializeApp, getApp } from '@angular/fire/app';
-import { browserSessionPersistence, initializeAuth, provideAuth } from '@angular/fire/auth';
-import { firebaseConfig } from './FirebaseConfig';
+import { initializeAuth, provideAuth } from '@angular/fire/auth';
 
+import { environment } from './../environments/environment';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import { firebaseConfig } from './FirebaseConfig';
     BrowserAnimationsModule,
     HttpClientModule,
     FdmRegistrationComponent,
-    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => initializeAuth(getApp(), {
       persistence: undefined,
       popupRedirectResolver: undefined
