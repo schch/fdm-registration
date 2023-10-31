@@ -145,7 +145,7 @@
         <p *ngIf="formValues.memberAmount > 0">Jahresbeitrag: {{ formValues.memberAmount |
           currency:'EUR':'symbol-narrow':'1.2-2':'de-DE'}} jeweils fällig zum 1. Januar</p>
         <p *ngIf="!formValues.paymentTypeIsSEPA && formValues.memberAmount > 0">Der Betrag wird von mir rechtzeitig
-          überweisen.</p>
+          überwiesen.</p>
         <p>Die Kündigungsfrist zur Kündigung der Mitgliedschaft beträgt 3 Mondate zum Ende eines Jahres. Die Kündigung
           bedarf der Textform.</p>
         <p>Das Abonement der Mailingliste kann über folgenden Link <a
@@ -176,7 +176,7 @@
       </mat-card-content>
     </mat-card>
     <div>
-      <p>Nach dem Klick auf den Button unten öffnet sich das Mailprgramm. Bitte die verschlüsselte Mail einfach mittels "Senden"-Funktion des Mailprogramms abschicken.</p>
+      <p>Nach dem Klick auf den Button unten öffnet sich das Mailprgramm. Bitte die verschlüsselte E-Mail einfach mittels "Senden"-Funktion des Mailprogramms abschicken.</p>
       <button mat-button matStepperPrevious>Zurück</button>
       <button mat-button (click)="subscribeToMailingList()">Anmeldung zur Mailingliste per E-Mail versenden</button>
       <button mat-button (click)="createMail()">Anmeldung zur Mitgliedschaft per E-Mail versenden</button>
